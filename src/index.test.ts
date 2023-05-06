@@ -7,24 +7,26 @@ import App from "./Router"
 describe(
 
     "GET /",
-    ()=>{
-        let app:App
+    () => {
+        let app: App
         beforeAll(
-            ()=>{
-                app=new App()
+            () => {
+                app = new App()
                 app.start()
             }
         )
 
         afterAll(
-            app.close()
+            () => {
+                app.close()
+            }
         )
         test(
             "debe devolver un mensaje",
-            async ()=>{
-                const res=await request(app.app).get("/")
-                expect (res.statusCode).toEqual(200)
-                expect ( res.text).toEqual("Bienvenidos a tyscript")
+            async () => {
+                const res = await request(app.app).get("/")
+                expect(res.statusCode).toEqual(200)
+                expect(res.text).toEqual("Bienvenidos a typescript")
 
             }
         )
