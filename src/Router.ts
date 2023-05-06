@@ -1,6 +1,14 @@
-import express, { Application, Request, Response } from "express"
-import { json } from "stream/consumers"
 
+
+import swaggerUi from "swagger-ui-express"
+import { swaggerSpec } from "./swagger.conf"
+import express, { Application, Request, Response } from "express"
+
+/**
+ * clase principal de la API define las rutas de la API
+ * @author Dayana Sanchez Moreno
+ * 
+ */
 
 class App {
     //Atributos
@@ -11,6 +19,11 @@ class App {
     constructor() {
         this.app = express()
         this.app.use(express.json())
+        this.app.use(
+            "/api.docs",
+            swaggerUi.serve,
+            swaggerUi.setup(swaggerSpec)
+        )
         this.routes()
 
     }
@@ -23,13 +36,20 @@ class App {
                 res.send("Bienvenidos a typescript")
             }
         )
+        this.app.post(
+            "/paciente",
+
+            (req: Request, res: Response) => {
+                res.send("Bienvenidos a typescript")
+            }
+        )
 
     }
     public start(): void {
 
         this.server = this.app.listen(
             3000,
-            () => { console.log(" el servidor esta escuchando enel puerto 3000") }
+            () => { console.log(" el servidor esta escuchando en el puerto 3000") }
         )
 
     }
