@@ -13,8 +13,8 @@ import express, { Application, Request, Response } from "express"
 class App {
     //Atributos
 
-    public app: any
-    private server: any
+    public app:any
+    private server:any
 
     constructor() {
         this.app = express()
