@@ -2,7 +2,7 @@
 // importar supertest/ bibliotecas
 
 import request from "supertest"
-import App from "./Router"
+import App from "../src/App"
 
 describe(
 

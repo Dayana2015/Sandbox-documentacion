@@ -26,6 +26,10 @@ class App {
         )
         this.routes()
 
+        /**
+         * definir y agregar las rutas de la API con express
+         */
+
     }
 
     private routes(): void {
