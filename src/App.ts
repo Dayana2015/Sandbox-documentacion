@@ -3,6 +3,7 @@
 import swaggerUi from "swagger-ui-express"
 import { swaggerSpec } from "./swagger.conf"
 import express, { Application, Request, Response } from "express"
+import { PrismaClient } from "@prisma/client"
 
 /**
  * clase principal de la API define las rutas de la API
@@ -13,8 +14,9 @@ import express, { Application, Request, Response } from "express"
 class App {
     //Atributos
 
-    public app:any
-    private server:any
+    public app: any
+    private server: any
+    private prismaClient: PrismaClient
 
     constructor() {
         this.app = express()
@@ -24,6 +26,7 @@ class App {
             swaggerUi.serve,
             swaggerUi.setup(swaggerSpec)
         )
+        this.prismaClient = new PrismaClient()
         this.routes()
 
         /**
@@ -41,10 +44,38 @@ class App {
             }
         )
         this.app.post(
-            "/paciente",
+            "/crear_paciente",
 
-            (req: Request, res: Response) => {
-                res.send("Bienvenidos a typescript")
+            async (req: Request, res: Response) => {
+                try {
+                    const {
+                        cedula,
+                        nombre,
+                        apellido,
+                        fecha,
+                        telefono
+
+                    } = req.body
+
+                    const fechaNacimiento = new Date(fecha)
+
+                    const paciente = await this.prismaClient.paciente.create(
+                        {
+                            data: {
+                                cedula,
+                                nombre,
+                                apellido,
+                                fechaNacimiento,
+                                telefono
+
+                            }
+                        }
+                    )
+                    res.json(paciente)
+                } catch (e:any){
+                    res.status(400)
+                    res.json({ error:e.message })
+                }
             }
         )
 
