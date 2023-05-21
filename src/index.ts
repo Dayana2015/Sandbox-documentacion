@@ -1,4 +1,6 @@
-import App from "./Router"
+
+
+import App from "./App"
 
 // crear un objeto de la clase App
 
