@@ -16,6 +16,7 @@ import cors from "cors"
 
 
 
+
 /**
  * clase principal de la API define las rutas de la API
  * @author Dayana Sanchez Moreno
@@ -39,7 +40,7 @@ class App {
             swaggerUi.serve,
             swaggerUi.setup(swaggerSpec)
         )
-        this.app.use.cors()
+        this.app.use(cors())
         this.routes()
         this.prismaClient= new PrismaClient()
 
